@@ -1,90 +1,43 @@
 #!/usr/bin/env zsh
 
-_LS=(=ls)
+
+if ! =ls --version >/dev/null 2>&1 ; then
+  echo This plugin doesn\'t support BSD ls, please install GNU ls
+  return -1
+fi
+
+_LS=(=ls -hF --group-directories-first --color --time-style=+%Y-%m-%d\ %H:%M)
 
 if (( $+commands[gls] )); then
-  _LS=(=gls)
+  _LS=(=gls -hF --group-directories-first --color --time-style=+%Y-%m-%d\ %H:%M)
 fi
 
-_LS_IS_GNU="false" # FIXME: Doesn't work on BSD* systems
-if $_LS --version >/dev/null 2>&1 ; then
-  _LS_IS_GNU="true"
-fi
-
-_LS_GRC=""
 if (( $+commands[grc] )); then
-  _LS_GRC=("grc" "--config=${${(%):-%x}:a:h}/conf.ls")
+  _LS=("grc" "--config=${${(%):-%x}:a:h}/conf.ls" $_LS)
 fi
 
-_LS_COLOR=""
 
+function ls(){
+  $_LS -ClxB  $@
+}
+compdef ls=ls
 
-if [[ "$_LS_IS_GNU" == "true" ]]; then
+function l(){
+  $_LS -ClxB  $@
+}
+compdef l=ls
 
-  if [[ "$COLORS" == "true" ]]; then
-    _LS_COLOR="--color"
-  else
-    _LS_COLOR="--color=never"
-    _LS_GRC=""
-  fi
+function ll(){
+  $_LS -l  $@
+}
+compdef ll=ls
 
-  function ll(){
-    $_LS_GRC $_LS $_LS_COLOR -lFh --group-directories-first --time-style=+%Y-%m-%d\ %H:%M $@
-  }
-  compdef ll=ls
+function lsd(){
+  $_LS -l -d $@ *(-/DN)
+}
+compdef lsd=ls
 
-  function lsd(){
-    $_LS_GRC $_LS $_LS_COLOR -lFh --group-directories-first --time-style=+%Y-%m-%d\ %H:%M -d $@ *(-/DN)
-  }
-  compdef lsd=ls
-
-  function la(){
-    $_LS $_LS_COLOR -CFlxBh --group-directories-first -A $@
-  }
-  compdef la=ls
-
-  function l(){
-    $_LS $_LS_COLOR -CFlxBh --group-directories-first $@
-  }
-  compdef l=ls
-
-  function ls(){
-    $_LS $_LS_COLOR -CFlxBh --group-directories-first $@
-  }
-  compdef ls=ls
-
-else
-
-  if [[ "$COLORS" == "true" ]]; then
-    _LS_COLOR="-G"
-  else
-    _LS_COLOR=""
-    _LS_GRC=""
-  fi
-
-  function ll(){
-    $_LS_GRC $_LS $_LS_COLOR -lFh $@
-  }
-  compdef ll=ls
-
-  function lsd(){
-    $_LS_GRC $_LS $_LS_COLOR -lFh -d $@ *(-/DN)
-  }
-  compdef lsd=ls
-
-  function la(){
-    $_LS $_LS_COLOR -CFlxBh -A $@
-  }
-  compdef la=ls
-
-  function l(){
-    $_LS $_LS_COLOR -CFlxBh $@
-  }
-  compdef l=ls
-
-  function ls(){
-    $_LS $_LS_COLOR -CFlxBh $@
-  }
-  compdef ls=ls
-
-fi
+function la(){
+  $_LS  -ClxB  -A $@
+}
+compdef la=ls
