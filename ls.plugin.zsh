@@ -6,14 +6,18 @@ if ! =ls --version >/dev/null 2>&1 ; then
   return -1
 fi
 
-_LS=(=ls -hF --group-directories-first --color --time-style=+%Y-%m-%d\ %H:%M)
+
+_LS=(ls)
 
 if (( $+commands[gls] )); then
-  _LS=(=gls -hF --group-directories-first --color --time-style=+%Y-%m-%d\ %H:%M)
+  _LS=(gls)
 fi
 
+_LS=($_LS -hF --group-directories-first --color --time-style=+%Y-%m-%d\ %H:%M)
+
+
 if (( $+commands[grc] )); then
-  _LS=("grc" "--config=${${(%):-%x}:a:h}/conf.ls" $_LS)
+  _GRC=("grc" "--config=${${(%):-%x}:a:h}/conf.ls" )
 fi
 
 
@@ -27,11 +31,6 @@ function l(){
 }
 compdef l=ls
 
-function ll(){
-  $_LS -l  $@
-}
-compdef ll=ls
-
 function lsd(){
   $_LS -l -d $@ *(-/DN)
 }
@@ -41,3 +40,8 @@ function la(){
   $_LS  -ClxB  -A $@
 }
 compdef la=ls
+
+function ll(){
+  $_GRC $_LS -l  $@
+}
+compdef ll=ls
