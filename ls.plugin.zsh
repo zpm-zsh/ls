@@ -6,7 +6,7 @@ if ! =ls --version >/dev/null 2>&1 ; then
   return -1
 fi
 
-if  =ls --hyperlink >/dev/null 2>&1 ; then
+if [[ -z $SSH_CONNECTION ]] && =ls --hyperlink >/dev/null 2>&1 ; then
   _HYPERLINK='--hyperlink'
 fi
 
