@@ -6,14 +6,16 @@ if ! =ls --version >/dev/null 2>&1 ; then
   return -1
 fi
 
-if [[ -z $SSH_CONNECTION ]] && =ls --hyperlink >/dev/null 2>&1 ; then
-  _HYPERLINK='--hyperlink'
-fi
+
 
 _LS=(=ls)
 
 if (( $+commands[gls] )); then
   _LS=(=gls)
+fi
+
+if [[ -z $SSH_CONNECTION ]] && $_LS --hyperlink >/dev/null 2>&1 ; then
+  _HYPERLINK='--hyperlink'
 fi
 
 _LS=($_LS -hF $_HYPERLINK  --group-directories-first --time-style=+%Y-%m-%d\ %H:%M)
