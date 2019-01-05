@@ -46,6 +46,12 @@ function la(){
 compdef la=ls
 
 function ll(){
-  $_GRC $_LS $(_is_ls_colored) -l $@
+  
+  
+  if [[ "$CLICOLOR" = 1 ]]; then
+    $_GRC
+  else
+    $_LS $(_is_ls_colored) -l $@
+  fi
 }
 compdef ll=ls
