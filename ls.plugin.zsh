@@ -18,11 +18,11 @@ if [[ -z $SSH_CONNECTION ]] && $_LS --hyperlink >/dev/null 2>&1 ; then
   _HYPERLINK='--hyperlink'
 fi
 
-_LS=($_LS -hF $_HYPERLINK  --group-directories-first --time-style=+%Y-%m-%d\ %H:%M)
+_LS=($_LS -hF  --group-directories-first --time-style=+%Y-%m-%d\ %H:%M)
 
 function _is_ls_colored(){
   if [[ "$CLICOLOR" = 1 ]]; then
-    echo "--color"
+    echo "--color $_HYPERLINK"
   fi
 }
 
@@ -47,11 +47,10 @@ compdef la=ls
 
 function ll(){
   
-  
   if [[ "$CLICOLOR" = 1 ]]; then
-    $_GRC
+    $_GRC  $_LS $(_is_ls_colored) -l $@
   else
-    $_LS $(_is_ls_colored) -l $@
+    $_LS -l $@
   fi
 }
 compdef ll=ls
