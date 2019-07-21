@@ -6,19 +6,17 @@ if ! =ls --version >/dev/null 2>&1 ; then
   return -1
 fi
 
-
-
 _LS=(=ls)
 
 if (( $+commands[gls] )); then
   _LS=(=gls)
 fi
 
-if [[ -z $SSH_CONNECTION ]] && $_LS --hyperlink >/dev/null 2>&1 ; then
+if $_LS --hyperlink >/dev/null 2>&1 ; then
   _HYPERLINK='--hyperlink'
 fi
 
-_LS=($_LS -hF  --group-directories-first --time-style=+%Y-%m-%d\ %H:%M)
+_LS=($_LS -hF  --group-directories-first --time-style=+%Y-%m-%d\ %H:%M --quoting-style=literal)
 
 function _is_ls_colored(){
   if [[ "$CLICOLOR" = 1 ]]; then
