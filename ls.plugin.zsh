@@ -2,7 +2,7 @@
 
 if command -v exa >/dev/null; then
   # Use exa
-  exa_params=('--git' '--icons' '--classify' '--group-directories-first' '--time-style=long-iso')
+  exa_params=('--git' '--icons' '--classify' '--group-directories-first' '--time-style=long-iso' '--group')
   
   function ls(){
     exa $exa_params $@
