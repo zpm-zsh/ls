@@ -10,12 +10,12 @@ if command -v exa >/dev/null; then
   compdef ls=exa
   
   function l(){
-    exa '--git-ignore' "${exa_params[@]}" $@
+    exa --git-ignore "${exa_params[@]}" $@
   }
   compdef l=exa
   
   function la(){
-    exa "${exa_params[@]}"  $@
+    exa -a "${exa_params[@]}" $@
   }
   compdef la=exa
   
