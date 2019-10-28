@@ -27,11 +27,6 @@ if command -v exa >/dev/null; then
   
 else
   
-  if ! =ls --version >/dev/null 2>&1 ; then
-    echo This plugin doesn\'t support BSD ls, please install GNU ls
-    return 1
-  fi
-  
   _ls=(=ls)
   
   if command -v gls 2>/dev/null; then
