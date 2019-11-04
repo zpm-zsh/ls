@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-if command -v exa >/dev/null; then
+if (( $+commands[exa] )); then
   # Use exa
   exa_params=('--git' '--icons' '--classify' '--group-directories-first' '--time-style=long-iso' '--group' '--color-scale')
   
@@ -24,12 +24,10 @@ if command -v exa >/dev/null; then
     exa --header --long "${exa_params[@]}" $@
   }
   compdef ll=exa
-  
 else
-  
   _ls=(=ls)
   
-  if command -v gls 2>/dev/null; then
+  if (( $+commands[gls] )); then
     _ls=(=gls)
   fi
   
@@ -45,7 +43,7 @@ else
     fi
   }
   
-  if command -v grc >/dev/null; then
+  if (( $+commands[grc] )); then
     _grc=("grc" "--config=${${(%):-%x}:a:h}/conf.ls" )
   fi
   
@@ -73,6 +71,5 @@ else
     fi
   }
   compdef ll=ls
- 
 fi
 
