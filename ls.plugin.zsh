@@ -30,10 +30,10 @@ if (( $+commands[exa] )); then
   }
   compdef ll=exa
 else
-  _ls=(command ls)
+  _ls=(=ls)
   
   if (( $+commands[gls] )); then
-    _ls=(command gls)
+    _ls=(=gls)
   fi
   
   _ls_params=('-hF' '--group-directories-first' '--time-style=+%Y-%m-%d %H:%M' '--quoting-style=literal')
