@@ -30,24 +30,24 @@ if (( $+commands[exa] )); then
   }
   compdef ll=exa
 else
-  _ls=(=ls)
+  _ls=(command ls)
   
   if (( $+commands[gls] )); then
-    _ls=(=gls)
-  fi
-  
-  if ${_ls[@]} --hyperlink >/dev/null 2>&1 ; then
-    _hyperlink='--hyperlink'
+    _ls=(command gls)
   fi
   
   _ls_params=('-hF' '--group-directories-first' '--time-style=+%Y-%m-%d %H:%M' '--quoting-style=literal')
+
+  if ${_ls[@]} --hyperlink >/dev/null 2>&1 ; then
+    _ls_params+=('--hyperlink')
+  fi
   
   if [[ "$CLICOLOR" != "0" ]]; then
-    _ls_params+=("--color" "${_hyperlink}")
+    _ls_params+=('--color')
   fi
   
   if (( $+commands[grc] )); then
-    _grc=("grc" "--config=${_DIRNAME}/conf.ls" )
+    _grc=('grc' "--config=${_DIRNAME}/conf.ls" )
   fi
   
   function ls(){
