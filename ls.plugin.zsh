@@ -10,23 +10,23 @@ if (( $+commands[exa] )); then
   exa_params=('--git' '--icons' '--classify' '--group-directories-first' '--time-style=long-iso' '--group' '--color-scale')
   
   function ls(){
-    exa "${exa_params}" $@
+    exa ${exa_params} $@
   }
   compdef ls=exa
   
   function l(){
-    exa --git-ignore "${exa_params}" $@
+    exa --git-ignore ${exa_params} $@
   }
   compdef l=exa
   
   function la(){
-    exa -a "${exa_params}" $@
+    exa -a ${exa_params} $@
   }
   compdef la=exa
   
   function ll(){
     
-    exa --header --long "${exa_params}" $@
+    exa --header --long ${exa_params} $@
   }
   compdef ll=exa
 else
