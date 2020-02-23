@@ -3,9 +3,10 @@
 # Standarized $0 handling, following:
 # https://github.com/zdharma/Zsh-100-Commits-Club/blob/master/Zsh-Plugin-Standard.adoc
 0="${${ZERO:-${0:#$ZSH_ARGZERO}}:-${(%):-%N}}"
-_DIRNAME="${0:h}"
+local _DIRNAME="${0:h}"
 
 if (( $+commands[exa] )); then
+  typeset -g exa_params
   # Use exa
   exa_params=('--git' '--icons' '--classify' '--group-directories-first' '--time-style=long-iso' '--group' '--color-scale')
   
@@ -30,12 +31,14 @@ if (( $+commands[exa] )); then
   }
   compdef ll=exa
 else
+  typeset -g _ls
   _ls=(=ls)
   
   if (( $+commands[gls] )); then
     _ls=(=gls)
   fi
   
+  typeset -g _ls_params
   _ls_params=('-hF' '--group-directories-first' '--time-style=+%Y-%m-%d %H:%M' '--quoting-style=literal')
 
   if ${_ls[@]} --hyperlink >/dev/null 2>&1 ; then
