@@ -69,7 +69,7 @@ else
   compdef la=ls
   
   function ll(){
-    if [[ "$CLICOLOR" = 1 ]]; then
+    if [[ "$CLICOLOR" != "0" ]]; then
       $_grc $_ls ${_ls_params} -l $@
     else
       $_ls -l $@
