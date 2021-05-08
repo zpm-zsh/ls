@@ -49,7 +49,7 @@ zpm load zpm-zsh/ls
 
 ## [antigen](https://github.com/zsh-users/antigen)
 
-Add `antigen bundle zpm-zsh/clipboard` to your .zshrc where you're adding your other plugins. Antigen will clone the plugin for you and add it to your antigen setup the next time you start a new shell.
+Add `antigen bundle zpm-zsh/ls` to your .zshrc where you're adding your other plugins. Antigen will clone the plugin for you and add it to your antigen setup the next time you start a new shell.
 
 ## [prezto](https://github.com/sorin-ionescu/prezto)
 
