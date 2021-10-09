@@ -5,7 +5,7 @@
 0="${${ZERO:-${0:#$ZSH_ARGZERO}}:-${(%):-%N}}"
 local _DIRNAME="${0:h}"
 
-if (( $+commands[exa] )); then
+if (( $+commands[exa] && ! ${+ZSH_LS_PREFER_LS} )); then
   typeset -g exa_params
   # Use exa
   exa_params=('--git' '--icons' '--classify' '--group-directories-first' '--time-style=long-iso' '--group' '--color-scale')

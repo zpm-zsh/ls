@@ -8,7 +8,7 @@ Zsh plugin for ls. It improves the output of `ls`, and adds the following aliase
 
 ![screenshot](./ls.png)
 
-This plugin supports [exa](https://github.com/ogham/exa), if installed then:
+This plugin supports [exa](https://github.com/ogham/exa), if installed and no `ZSH_LS_PREFER_LS` is defined as environment variable then:
 
 * `l` - show files, without git ignored
 * `ls` - show files
