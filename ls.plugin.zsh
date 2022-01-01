@@ -1,14 +1,13 @@
 #!/usr/bin/env zsh
 
 # Standarized $0 handling, following:
-# https://github.com/zdharma/Zsh-100-Commits-Club/blob/master/Zsh-Plugin-Standard.adoc
+# https://z-shell.github.io/zsh-plugin-assessor/Zsh-Plugin-Standard
 0="${${ZERO:-${0:#$ZSH_ARGZERO}}:-${(%):-%N}}"
+0="${${(M)0:#/*}:-$PWD/$0}"
 local _DIRNAME="${0:h}"
 
 if (( $+commands[exa] && ! ${+ZSH_LS_PREFER_LS} )); then
-  typeset -g exa_params
-  # Use exa
-  exa_params=('--git' '--icons' '--classify' '--group-directories-first' '--time-style=long-iso' '--group' '--color-scale')
+  typeset -g exa_params; exa_params=('--git' '--icons' '--classify' '--group-directories-first' '--time-style=long-iso' '--group' '--color-scale')
 
   function ls(){
     exa ${exa_params} $@
