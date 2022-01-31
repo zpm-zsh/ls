@@ -7,7 +7,7 @@
 local _DIRNAME="${0:h}"
 
 if (( $+commands[exa] && ! ${+ZSH_LS_PREFER_LS} )); then
-  typeset -g exa_params; exa_params=('--git' '--icons' '--classify' '--group-directories-first' '--time-style=long-iso' '--group' '--color-scale')
+  typeset -g exa_params; exa_params=('--git' '--icons' '--classify' '--group-directories-first' '--time-style=long-iso' '--group' '--color=auto')
 
   function ls(){
     exa ${exa_params} $@
