@@ -15,6 +15,13 @@ This plugin supports [exa](https://github.com/ogham/exa), if installed and no `Z
 * `la` - show all files
 * `ll` - show files line by line
 
+> You can disable git integration in exa using this:
+
+
+```sh
+export ZSH_LS_DISABLE_GIT=true
+```
+
 ![screenshot](./exa.png)
 
 #### Note
