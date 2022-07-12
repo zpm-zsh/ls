@@ -36,12 +36,15 @@ else
   typeset -g _ls
   _ls=(=ls)
 
-  if (( $+commands[gls] )); then
-    _ls=(=gls)
-  fi
-
   typeset -g _ls_params
-  _ls_params=('-hF' '--group-directories-first' '--time-style=+%Y-%m-%d %H:%M' '--quoting-style=literal')
+  _ls_params=('-hF')
+
+  if [[ `uname` != "Darwin" ]] || [[ $+commands[gls] ]]; then
+    _ls_params+=('--group-directories-first' '--time-style=long-iso' '--quoting-style=literal')
+    if [[ $+commands[gls] ]]; then
+      _ls=(=gls)
+    fi
+  fi
 
   if ${_ls[@]} --hyperlink >/dev/null 2>&1 ; then
     _ls_params+=('--hyperlink')
