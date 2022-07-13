@@ -7,7 +7,7 @@
 local _DIRNAME="${0:h}"
 
 if (( $+commands[exa] && ! ${+ZSH_LS_PREFER_LS} )); then
-  typeset -g exa_params; exa_params=('--icons' '--classify' '--group-directories-first' '--time-style=long-iso' '--group' '--color=auto')
+  typeset -g exa_params; exa_params=('--icons' '--classify' '--group-directories-first' '--time-style=long-iso' '--group' '--color=auto' "-I'.DS_Store'")
 
   if ((! ${+ZSH_LS_DISABLE_GIT})); then
     exa_params+=('--git')
