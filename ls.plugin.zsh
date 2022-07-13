@@ -9,6 +9,10 @@ local _DIRNAME="${0:h}"
 if (( $+commands[exa] && ! ${+ZSH_LS_PREFER_LS} )); then
   typeset -g exa_params; exa_params=('--icons' '--classify' '--group-directories-first' '--time-style=long-iso' '--group' '--color=auto')
 
+  if [[ `uname` == "Darwin" ]]; then
+    exa_params+="-I'.DS_Store'"
+  fi
+
   if ((! ${+ZSH_LS_DISABLE_GIT})); then
     exa_params+=('--git')
   fi
