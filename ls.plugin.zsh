@@ -36,6 +36,11 @@ if (( $+commands[exa] && ! ${+ZSH_LS_PREFER_LS} )); then
     exa --header --long ${exa_params} $@
   }
   compdef ll=exa
+
+  function lla(){
+    exa -a --header --long ${exa_params} $@
+  }
+  compdef lla=exa
 else
   typeset -g _ls
   _ls=(=ls)
