@@ -90,5 +90,13 @@ else
     fi
   }
   compdef ll=ls
+
+  function lla() {
+    if [[ "$CLICOLOR" != "0" ]]; then
+      $_grc $_ls ${_ls_params} -l -a $@
+    else
+      $_ls -l -a $@
+    fi
+  }
 fi
 
