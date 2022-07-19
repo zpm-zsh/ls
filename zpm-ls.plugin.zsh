@@ -8,7 +8,13 @@ local _DIRNAME="${0:h}"
 
 # exa based
 if (( $+commands[exa] && ! ${+ZSH_LS_PREFER_LS} )); then
-  typeset -g exa_params; exa_params=('--icons' '--classify' '--group-directories-first' '--time-style=long-iso' '--group' '--color=auto')
+  typeset -g exa_params=();
+  #exa_params+='--icons'
+  exa_params+='--classify'
+  exa_params+='--group-directories-first'
+  exa_params+='--time-style=long-iso'
+  exa_params+='--group'
+  exa_params+='--color=auto'
 
   if [[ `uname` == "Darwin" ]]; then
     exa_params+="-I'.DS_Store'"
