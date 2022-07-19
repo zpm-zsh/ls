@@ -6,6 +6,7 @@
 0="${${(M)0:#/*}:-$PWD/$0}"
 local _DIRNAME="${0:h}"
 
+# exa based
 if (( $+commands[exa] && ! ${+ZSH_LS_PREFER_LS} )); then
   typeset -g exa_params; exa_params=('--icons' '--classify' '--group-directories-first' '--time-style=long-iso' '--group' '--color=auto')
 
@@ -41,6 +42,34 @@ if (( $+commands[exa] && ! ${+ZSH_LS_PREFER_LS} )); then
     exa -a --header --long ${exa_params} $@
   }
   compdef lla=exa
+
+  # Exa-enabled only
+  # ----------------
+  # accepts argument of # for depth
+  function tree(){
+    # if # provided
+    if [[ $1 =~ '^[0-9]+$' ]]; then
+      exa -T -L $1 ${exa_params} ${@:2}
+    # no # provided (max-depth)
+    else
+      exa -T ${exa_params} ${@}
+    fi
+  }
+  compdef tree=exa
+
+  # accepts argument of # for depth
+  function treea(){
+    # if # provided
+    if [[ $1 =~ '^[0-9]+$' ]]; then
+      exa -T -L $1 ${exa_params} ${@:2}
+    # no # provided (max-depth)
+    else
+      exa -a -T ${exa_params} ${@}
+    fi
+  }
+  compdef treea=exa
+
+# ls + gls based
 else
   typeset -g _ls
   _ls=(=ls)
