@@ -67,7 +67,7 @@ if (( $+commands[exa] && ! ${+ZSH_LS_PREFER_LS} )); then
   function treea(){
     # if # provided
     if [[ $1 =~ '^[0-9]+$' ]]; then
-      exa -T -L $1 ${exa_params} ${@:2}
+      exa -a -T -L $1 ${exa_params} ${@:2}
     # no # provided (max-depth)
     else
       exa -a -T ${exa_params} ${@}
