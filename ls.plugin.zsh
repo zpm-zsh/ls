@@ -6,29 +6,63 @@
 0="${${(M)0:#/*}:-$PWD/$0}"
 local _DIRNAME="${0:h}"
 
-if (( $+commands[exa] && ! ${+ZSH_LS_PREFER_LS} )); then
-  typeset -g exa_params; exa_params=('--icons' '--classify' '--group-directories-first' '--time-style=long-iso' '--group' '--color=auto')
+if [[ -z "$ZSH_LS_BACKEND" ]]; then
+  if (( $+commands[lsd] )); then
+    ZSH_LS_BACKEND='lsd'
+  elif (( $+commands[exa] )); then
+    ZSH_LS_BACKEND='exa'
+  else
+    ZSH_LS_BACKEND='ls'
+  fi
+else
+  ZSH_LS_BACKEND='ls'
+fi
+
+if [[ "$ZSH_LS_BACKEND" == "lsd" ]]; then
+  typeset -g lsd_params; lsd_params=()
+
+  function ls() {
+    lsd ${lsd_params} $@
+  }
+  compdef ls=lsd
+
+  function l() {
+    lsd ${lsd_params} $@
+  }
+  compdef l=lsd
+
+  function la() {
+    lsd -a ${lsd_params} $@
+  }
+  compdef la=lsd
+
+  function ll() {
+    lsd --header --long ${lsd_params} $@
+  }
+  compdef ll=lsd
+elif [[ "$ZSH_LS_BACKEND" == "exa" ]]; then
+  typeset -g lsd_params; lsd_params=('--icons' '--classify' '--group-directories-first' '--time-style=long-iso' '--group' '--color=auto')
 
   if ((! ${+ZSH_LS_DISABLE_GIT})); then
-    exa_params+=('--git')
+    lsd_params+=('--git')
   fi
 
-  function ls(){
+  function ls() {
     exa ${exa_params} $@
   }
   compdef ls=exa
 
-  function l(){
+  function l() {
     exa --git-ignore ${exa_params} $@
   }
   compdef l=exa
 
-  function la(){
+  function la() {
     exa -a ${exa_params} $@
   }
   compdef la=exa
 
-  function ll(){
+  function ll() {
     exa --header --long ${exa_params} $@
   }
   compdef ll=exa
@@ -55,22 +89,22 @@ else
     _grc=('grc' "--config=${_DIRNAME}/conf.ls" )
   fi
 
-  function ls(){
+  function ls() {
     $_ls ${_ls_params} -C $@
   }
   compdef ls=ls
 
-  function l(){
+  function l() {
     $_ls ${_ls_params} -C $@
   }
   compdef l=ls
 
-  function la(){
+  function la() {
     $_ls ${_ls_params} -C -A $@
   }
   compdef la=ls
 
-  function ll(){
+  function ll() {
     if [[ "$CLICOLOR" != "0" ]]; then
       $_grc $_ls ${_ls_params} -l $@
     else
