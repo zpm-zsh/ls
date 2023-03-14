@@ -7,7 +7,9 @@
 local _DIRNAME="${0:h}"
 
 if [[ -z "$ZSH_LS_BACKEND" ]]; then
-  if (( $+commands[lsd] )); then
+  if [[ ! -z "$ZSH_LS_PREFER_LS" ]]; then
+    ZSH_LS_BACKEND='ls'
+  elif (( $+commands[lsd] )); then
     ZSH_LS_BACKEND='lsd'
   elif (( $+commands[exa] )); then
     ZSH_LS_BACKEND='exa'
@@ -41,10 +43,10 @@ if [[ "$ZSH_LS_BACKEND" == "lsd" ]]; then
   }
   compdef ll=lsd
 elif [[ "$ZSH_LS_BACKEND" == "exa" ]]; then
-  typeset -g lsd_params; lsd_params=('--icons' '--classify' '--group-directories-first' '--time-style=long-iso' '--group' '--color=auto')
+  typeset -g exa_params; exa_params=('--icons' '--classify' '--group-directories-first' '--time-style=long-iso' '--group' '--color=auto')
 
   if ((! ${+ZSH_LS_DISABLE_GIT})); then
-    lsd_params+=('--git')
+    exa_params+=('--git')
   fi
 
   function ls() {

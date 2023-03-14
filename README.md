@@ -1,4 +1,7 @@
-# ls
+# Ls
+
+![screenshot](./ls.png)
+
 Zsh plugin for ls. It improves the output of `ls`, and adds the following aliases:
 
 * `l` - show files
@@ -6,30 +9,32 @@ Zsh plugin for ls. It improves the output of `ls`, and adds the following aliase
 * `la` - show all files
 * `ll` - show files line by line
 
-![screenshot](./ls.png)
+This plugin supports [lsd](https://github.com/Peltoche/lsd), [exa](https://github.com/ogham/exa) and [GNU ls](https://www.gnu.org/software/coreutils/manual/html_node/ls-invocation.html) backends.
 
-This plugin supports [exa](https://github.com/ogham/exa), if installed and no `ZSH_LS_PREFER_LS` is defined as environment variable then:
-
-* `l` - show files, without git ignored
-* `ls` - show files
-* `la` - show all files
-* `ll` - show files line by line
+You can change ls backend using `ZSH_LS_BACKEND` variable, set it to `lsd`, `exa` or `ls`.
+If no `ZSH_LS_BACKEND` is defined as environment variable then backend will be selected automatically: `lsd`, or `exa`, or `ls`
 
 > You can disable git integration in exa using this:
-
 
 ```sh
 export ZSH_LS_DISABLE_GIT=true
 ```
 
-![screenshot](./exa.png)
+## Note
 
-#### Note
 For a better view, use a theme for `dircolors`, for example [dircolors-material](https://github.com/zpm-zsh/dircolors-material)
 
-# How to install
+## How to install
 
-## [oh-my-zsh](http://github.com/robbyrussell/oh-my-zsh)
+### [zpm](https://github.com/zpm-zsh/zpm)
+
+Add the following to your .zshrc file somewhere after you source zpm.
+
+```sh
+zpm load zpm-zsh/ls
+```
+
+### [oh-my-zsh](http://github.com/robbyrussell/oh-my-zsh)
 
 * Download the script or clone this repository in [oh-my-zsh](http://github.com/robbyrussell/oh-my-zsh) plugins directory:
 
@@ -46,19 +51,11 @@ plugins=( [plugins...] ls [plugins...])
 
 * Restart shell
 
-## [zpm](https://github.com/zpm-zsh/zpm)
-
-Add the following to your .zshrc file somewhere after you source zpm.
-
-```sh
-zpm load zpm-zsh/ls
-```
-
-## [antigen](https://github.com/zsh-users/antigen)
+### [antigen](https://github.com/zsh-users/antigen)
 
 Add `antigen bundle zpm-zsh/ls` to your .zshrc where you're adding your other plugins. Antigen will clone the plugin for you and add it to your antigen setup the next time you start a new shell.
 
-## [prezto](https://github.com/sorin-ionescu/prezto)
+### [prezto](https://github.com/sorin-ionescu/prezto)
 
 For most people the easiest way to use zshmarks with [prezto](https://github.com/sorin-ionescu/prezto) is to manually clone the zshmarks repo to a directory of your choice (e.g. /usr/local or ~/bin) and symlink the zshmarks folder into your zpretzo/modules folder:
 
@@ -77,12 +74,10 @@ Alternatively, you can add the zshmarks repository as a submodule to your prezto
 Then make sure you activate the plugin in your .zpreztorc file:
 
 ```sh
-zstyle ':prezto:load' pmodule \
-ls \
-...
+zstyle ':prezto:load' pmodule ls
 ```
 
-## [zplug](https://github.com/zplug/zplug)
+### [zplug](https://github.com/zplug/zplug)
 
 Add the following to your .zshrc file somewhere after you source zplug.
 
