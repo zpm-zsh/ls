@@ -6,6 +6,11 @@
 0="${${(M)0:#/*}:-$PWD/$0}"
 local _DIRNAME="${0:h}"
 
+# Remove any existing alias of ls
+if [[ $(alias ls) ]]; then
+  unalias ls
+fi
+
 if [[ -z "$ZSH_LS_BACKEND" ]]; then
   if [[ ! -z "$ZSH_LS_PREFER_LS" ]]; then
     ZSH_LS_BACKEND='ls'
