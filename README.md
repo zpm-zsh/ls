@@ -55,6 +55,10 @@ plugins=( [plugins...] ls [plugins...])
 
 Add `antigen bundle zpm-zsh/ls` to your .zshrc where you're adding your other plugins. Antigen will clone the plugin for you and add it to your antigen setup the next time you start a new shell.
 
+### [zinit](https://github.com/zdharma-continuum/zinit)
+
+Add `zinit load zdharma-continuum/history-search-multi-word` to your .zshrc, and Zinit will automatically handle cloning the plugin for you the next time you start zsh.
+
 ### [prezto](https://github.com/sorin-ionescu/prezto)
 
 For most people the easiest way to use zshmarks with [prezto](https://github.com/sorin-ionescu/prezto) is to manually clone the zshmarks repo to a directory of your choice (e.g. /usr/local or ~/bin) and symlink the zshmarks folder into your zpretzo/modules folder:
