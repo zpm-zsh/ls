@@ -9,12 +9,12 @@ Zsh plugin for ls. It improves the output of `ls`, and adds the following aliase
 * `la` - show all files
 * `ll` - show files line by line
 
-This plugin supports [lsd](https://github.com/Peltoche/lsd), [exa](https://github.com/ogham/exa) and [GNU ls](https://www.gnu.org/software/coreutils/manual/html_node/ls-invocation.html) backends.
+This plugin supports [lsd](https://github.com/Peltoche/lsd), [exa](https://github.com/ogham/exa)/[eza](https://github.com/eza-community/eza) and [GNU ls](https://www.gnu.org/software/coreutils/manual/html_node/ls-invocation.html) backends.
 
 You can change ls backend using `ZSH_LS_BACKEND` variable, set it to `lsd`, `exa` or `ls`.
-If no `ZSH_LS_BACKEND` is defined as environment variable then backend will be selected automatically: `lsd`, or `exa`, or `ls`
+If no `ZSH_LS_BACKEND` is defined as environment variable then backend will be selected automatically: `lsd`, or `eza`/`exa`, or `ls`
 
-> You can disable git integration in exa using this:
+> You can disable git integration in eza/exa using this:
 
 ```sh
 export ZSH_LS_DISABLE_GIT=true

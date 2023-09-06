@@ -16,6 +16,8 @@ if [[ -z "$ZSH_LS_BACKEND" ]]; then
     ZSH_LS_BACKEND='ls'
   elif (( $+commands[lsd] )); then
     ZSH_LS_BACKEND='lsd'
+  elif (( $+commands[eza] )); then
+    ZSH_LS_BACKEND='eza'
   elif (( $+commands[exa] )); then
     ZSH_LS_BACKEND='exa'
   else
@@ -47,7 +49,7 @@ if [[ "$ZSH_LS_BACKEND" == "lsd" ]]; then
     lsd --header --long ${lsd_params} $@
   }
   compdef ll=lsd
-elif [[ "$ZSH_LS_BACKEND" == "exa" ]]; then
+elif [[ "$ZSH_LS_BACKEND" == "exa" || "$ZSH_LS_BACKEND" == "eza" ]]; then
   typeset -g exa_params; exa_params=('--icons' '--classify' '--group-directories-first' '--time-style=long-iso' '--group' '--color=auto')
 
   if ((! ${+ZSH_LS_DISABLE_GIT})); then
@@ -55,24 +57,24 @@ elif [[ "$ZSH_LS_BACKEND" == "exa" ]]; then
   fi
 
   function ls() {
-    exa ${exa_params} $@
+    $ZSH_LS_BACKEND ${exa_params} $@
   }
-  compdef ls=exa
+  compdef ls=$ZSH_LS_BACKEND
 
   function l() {
-    exa --git-ignore ${exa_params} $@
+    $ZSH_LS_BACKEND --git-ignore ${exa_params} $@
   }
-  compdef l=exa
+  compdef l=$ZSH_LS_BACKEND
 
   function la() {
-    exa -a ${exa_params} $@
+    $ZSH_LS_BACKEND -a ${exa_params} $@
   }
-  compdef la=exa
+  compdef la=$ZSH_LS_BACKEND
 
   function ll() {
-    exa --header --long ${exa_params} $@
+    $ZSH_LS_BACKEND --header --long ${exa_params} $@
   }
-  compdef ll=exa
+  compdef ll=$ZSH_LS_BACKEND
 else
   typeset -g _ls
   _ls=(=ls)
