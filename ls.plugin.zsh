@@ -107,7 +107,11 @@ else
   compdef l=ls
 
   function la() {
-    $_ls ${_ls_params} -C -A $@
+    if [[ "$ZSH_LS_BACKEND" == "exa" ]]; then
+      exa -a ${exa_params} $@
+    else
+      ls -a $@
+    fi
   }
   compdef la=ls
 
@@ -120,4 +124,3 @@ else
   }
   compdef ll=ls
 fi
-
