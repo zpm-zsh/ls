@@ -57,7 +57,7 @@ Add `antigen bundle zpm-zsh/ls` to your .zshrc where you're adding your other pl
 
 ### [zinit](https://github.com/zdharma-continuum/zinit)
 
-Add `zinit load zdharma-continuum/history-search-multi-word` to your .zshrc, and Zinit will automatically handle cloning the plugin for you the next time you start zsh.
+Add `zinit load zpm-zsh/ls` to your .zshrc, and Zinit will automatically handle cloning the plugin for you the next time you start zsh.
 
 ### [prezto](https://github.com/sorin-ionescu/prezto)
 
