@@ -8,6 +8,7 @@ Zsh plugin for ls. It improves the output of `ls`, and adds the following aliase
 * `ls` - show files
 * `la` - show all files
 * `ll` - show files line by line
+* `lt` - show file tree in a folder
 
 This plugin supports [lsd](https://github.com/Peltoche/lsd), [exa](https://github.com/ogham/exa)/[eza](https://github.com/eza-community/eza) and [GNU ls](https://www.gnu.org/software/coreutils/manual/html_node/ls-invocation.html) backends.
 
