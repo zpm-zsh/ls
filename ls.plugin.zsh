@@ -23,8 +23,6 @@ if [[ -z "$ZSH_LS_BACKEND" ]]; then
   else
     ZSH_LS_BACKEND='ls'
   fi
-else
-  ZSH_LS_BACKEND='ls'
 fi
 
 if [[ "$ZSH_LS_BACKEND" == "lsd" ]]; then
