@@ -98,7 +98,7 @@ else
     _ls_params+=('--hyperlink')
   fi
 
-  if [[ "$CLICOLOR" != "0" ]]; then
+  if [[ "$CLICOLOR" != "0" && -z "$NO_COLOR" ]]; then
     _ls_params+=('--color')
   fi
 
@@ -131,7 +131,6 @@ else
   compdef ll=ls
 
   function lt() {
-    find . -print | sed -e 's;[^/]*/;|;g;s;|; |;g'
+    tree $@
   }
 fi
-
