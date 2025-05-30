@@ -6,6 +6,35 @@
 0="${${(M)0:#/*}:-$PWD/$0}"
 local _DIRNAME="${0:h}"
 
+if (( $+functions[zpm] )); then
+  zpm load zpm-zsh/helpers
+fi
+
+# Remove any existiong function of safe-compdef
+if (( $+functions[safe-compdef] )); then
+  unset -f safe-compdef
+fi
+
+# Define a safe-compdef function to avoid errors if the completion function does not exist
+# This is useful for plugins that may not have been loaded yet
+# or if the completion function is not available in the current context.
+# It checks if the function exists in the fpath or if it can be found with whence.
+# If it exists, it will set the completion definition for the given binary.
+# If it does not exist, it will not set the completion definition and will not throw an error.
+# Usage: safe-compdef <binary> <function>
+# Example: safe-compdef ls=lsd
+function safe-compdef() {
+  local bin=$1
+  local fn=$2
+
+  if [[ -n "$fn" && -f "${fpath[(r)*/_${fn}]}" ]]; then
+    compdef "$bin=$fn"
+  elif whence -w "_$fn" &>/dev/null; then
+    compdef "$bin=$fn"
+  fi
+}
+
+
 # Remove any existing alias of ls
 if [[ $(alias ls) ]]; then
   unalias ls
@@ -31,27 +60,27 @@ if [[ "$ZSH_LS_BACKEND" == "lsd" ]]; then
   function ls() {
     lsd ${lsd_params} $@
   }
-  compdef ls=lsd
+  safe-compdef ls=lsd
 
   function l() {
     lsd ${lsd_params} $@
   }
-  compdef l=lsd
+  safe-compdef l=lsd
 
   function la() {
     lsd -a ${lsd_params} $@
   }
-  compdef la=lsd
+  safe-compdef la=lsd
 
   function ll() {
     lsd --header --long ${lsd_params} $@
   }
-  compdef ll=lsd
+  safe-compdef ll=lsd
 
   function lt() {
     lsd --tree ${lsd_params} $@
   }
-  compdef lt=lsd
+  safe-compdef lt=lsd
 elif [[ "$ZSH_LS_BACKEND" == "exa" || "$ZSH_LS_BACKEND" == "eza" ]]; then
   typeset -g exa_params; exa_params=('--icons' '--classify' '--group-directories-first' '--time-style=long-iso' '--group' '--color=auto')
 
@@ -62,27 +91,27 @@ elif [[ "$ZSH_LS_BACKEND" == "exa" || "$ZSH_LS_BACKEND" == "eza" ]]; then
   function ls() {
     $ZSH_LS_BACKEND ${exa_params} $@
   }
-  compdef ls=$ZSH_LS_BACKEND
+  safe-compdef ls=$ZSH_LS_BACKEND
 
   function l() {
     $ZSH_LS_BACKEND --git-ignore ${exa_params} $@
   }
-  compdef l=$ZSH_LS_BACKEND
+  safe-compdef l=$ZSH_LS_BACKEND
 
   function la() {
     $ZSH_LS_BACKEND -a ${exa_params} $@
   }
-  compdef la=$ZSH_LS_BACKEND
+  safe-compdef la=$ZSH_LS_BACKEND
 
   function ll() {
     $ZSH_LS_BACKEND --header --long ${exa_params} $@
   }
-  compdef ll=$ZSH_LS_BACKEND
+  safe-compdef ll=$ZSH_LS_BACKEND
 
   function lt() {
     $ZSH_LS_BACKEND --tree ${exa_params} $@
   }
-  compdef lt=$ZSH_LS_BACKEND
+  safe-compdef lt=$ZSH_LS_BACKEND
 else
   typeset -g _ls
   _ls=(=ls)
@@ -109,17 +138,17 @@ else
   function ls() {
     $_ls ${_ls_params} -C $@
   }
-  compdef ls=ls
+  safe-compdef ls=ls
 
   function l() {
     $_ls ${_ls_params} -C $@
   }
-  compdef l=ls
+  safe-compdef l=ls
 
   function la() {
     $_ls ${_ls_params} -C -A $@
   }
-  compdef la=ls
+  safe-compdef la=ls
 
   function ll() {
     if [[ "$CLICOLOR" != "0" ]]; then
@@ -128,7 +157,7 @@ else
       $_ls -l $@
     fi
   }
-  compdef ll=ls
+  safe-compdef ll=ls
 
   function lt() {
     tree $@
