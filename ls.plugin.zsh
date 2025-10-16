@@ -77,10 +77,20 @@ if [[ "$ZSH_LS_BACKEND" == "lsd" ]]; then
   }
   safe-compdef ll lsd
 
+  function lla() {
+    lsd --header --long -a ${lsd_params} $@
+  }
+  safe-compdef lla lsd
+
   function lt() {
     lsd --tree ${lsd_params} $@
   }
   safe-compdef lt lsd
+
+  function lta() {
+    lsd --tree -a ${lsd_params} $@
+  }
+  safe-compdef lta lsd
 elif [[ "$ZSH_LS_BACKEND" == "exa" || "$ZSH_LS_BACKEND" == "eza" ]]; then
   typeset -g exa_params; exa_params=('--icons' '--classify' '--group-directories-first' '--time-style=long-iso' '--group' '--color=auto')
 
@@ -108,10 +118,20 @@ elif [[ "$ZSH_LS_BACKEND" == "exa" || "$ZSH_LS_BACKEND" == "eza" ]]; then
   }
   safe-compdef ll $ZSH_LS_BACKEND
 
+  function lla() {
+    $ZSH_LS_BACKEND --header --long -a ${exa_params} $@
+  }
+  safe-compdef lla $ZSH_LS_BACKEND
+
   function lt() {
     $ZSH_LS_BACKEND --tree ${exa_params} $@
   }
   safe-compdef lt $ZSH_LS_BACKEND
+
+  function lta() {
+    $ZSH_LS_BACKEND --tree -a ${exa_params} $@
+  }
+  safe-compdef lta $ZSH_LS_BACKEND
 else
   typeset -g _ls
   _ls=(=ls)
@@ -159,7 +179,22 @@ else
   }
   safe-compdef ll ls
 
+  function lla() {
+    if [[ "$CLICOLOR" != "0" ]]; then
+      $_grc $_ls ${_ls_params} -l -a $@
+    else
+      $_ls -l -a $@
+    fi
+  }
+  safe-compdef lla ls
+
   function lt() {
     tree $@
   }
+
+  function lta() {
+    tree -a $@
+  }
+  safe-compdef lt tree
+
 fi
