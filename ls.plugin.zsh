@@ -58,37 +58,37 @@ if [[ "$ZSH_LS_BACKEND" == "lsd" ]]; then
   typeset -g lsd_params; lsd_params=()
 
   function ls() {
-    lsd ${lsd_params} $@
+    lsd "${lsd_params[@]}" "$@"
   }
   safe-compdef ls lsd
 
   function l() {
-    lsd ${lsd_params} $@
+    lsd "${lsd_params[@]}" "$@"
   }
   safe-compdef l lsd
 
   function la() {
-    lsd -a ${lsd_params} $@
+    lsd -a "${lsd_params[@]}" "$@"
   }
   safe-compdef la lsd
 
   function ll() {
-    lsd --header --long ${lsd_params} $@
+    lsd --header --long "${lsd_params[@]}" "$@"
   }
   safe-compdef ll lsd
 
   function lla() {
-    lsd --header --long -a ${lsd_params} $@
+    lsd --header --long -a "${lsd_params[@]}" "$@"
   }
   safe-compdef lla lsd
 
   function lt() {
-    lsd --tree ${lsd_params} $@
+    lsd --tree "${lsd_params[@]}" "$@"
   }
   safe-compdef lt lsd
 
   function lta() {
-    lsd --tree -a ${lsd_params} $@
+    lsd --tree -a "${lsd_params[@]}" "$@"
   }
   safe-compdef lta lsd
 elif [[ "$ZSH_LS_BACKEND" == "exa" || "$ZSH_LS_BACKEND" == "eza" ]]; then
@@ -99,37 +99,37 @@ elif [[ "$ZSH_LS_BACKEND" == "exa" || "$ZSH_LS_BACKEND" == "eza" ]]; then
   fi
 
   function ls() {
-    $ZSH_LS_BACKEND ${exa_params} $@
+    $ZSH_LS_BACKEND "${exa_params[@]}" "$@"
   }
   safe-compdef ls $ZSH_LS_BACKEND
 
   function l() {
-    $ZSH_LS_BACKEND --git-ignore ${exa_params} $@
+    $ZSH_LS_BACKEND --git-ignore "${exa_params[@]}" "$@"
   }
   safe-compdef l $ZSH_LS_BACKEND
 
   function la() {
-    $ZSH_LS_BACKEND -a ${exa_params} $@
+    $ZSH_LS_BACKEND -a "${exa_params[@]}" "$@"
   }
   safe-compdef la $ZSH_LS_BACKEND
 
   function ll() {
-    $ZSH_LS_BACKEND --header --long ${exa_params} $@
+    $ZSH_LS_BACKEND --header --long "${exa_params[@]}" "$@"
   }
   safe-compdef ll $ZSH_LS_BACKEND
 
   function lla() {
-    $ZSH_LS_BACKEND --header --long -a ${exa_params} $@
+    $ZSH_LS_BACKEND --header --long -a "${exa_params[@]}" "$@"
   }
   safe-compdef lla $ZSH_LS_BACKEND
 
   function lt() {
-    $ZSH_LS_BACKEND --tree ${exa_params} $@
+    $ZSH_LS_BACKEND --tree "${exa_params[@]}" "$@"
   }
   safe-compdef lt $ZSH_LS_BACKEND
 
   function lta() {
-    $ZSH_LS_BACKEND --tree -a ${exa_params} $@
+    $ZSH_LS_BACKEND --tree -a "${exa_params[@]}" "$@"
   }
   safe-compdef lta $ZSH_LS_BACKEND
 else
@@ -156,44 +156,44 @@ else
   fi
 
   function ls() {
-    $_ls ${_ls_params} -C $@
+    "${_ls[@]}" "${_ls_params[@]}" -C "$@"
   }
   safe-compdef ls ls
 
   function l() {
-    $_ls ${_ls_params} -C $@
+    "${_ls[@]}" "${_ls_params[@]}" -C "$@"
   }
   safe-compdef l ls
 
   function la() {
-    $_ls ${_ls_params} -C -A $@
+    "${_ls[@]}" "${_ls_params[@]}" -C -A "$@"
   }
   safe-compdef la ls
 
   function ll() {
     if [[ "$CLICOLOR" != "0" ]]; then
-      $_grc $_ls ${_ls_params} -l $@
+      "${_grc[@]}" "${_ls[@]}" "${_ls_params[@]}" -l "$@"
     else
-      $_ls -l $@
+      "${_ls[@]}" -l "$@"
     fi
   }
   safe-compdef ll ls
 
   function lla() {
     if [[ "$CLICOLOR" != "0" ]]; then
-      $_grc $_ls ${_ls_params} -l -a $@
+      "${_grc[@]}" "${_ls[@]}" "${_ls_params[@]}" -l -a "$@"
     else
-      $_ls -l -a $@
+      "${_ls[@]}" -l -a "$@"
     fi
   }
   safe-compdef lla ls
 
   function lt() {
-    tree $@
+    tree "$@"
   }
 
   function lta() {
-    tree -a $@
+    tree -a "$@"
   }
   safe-compdef lt tree
 
